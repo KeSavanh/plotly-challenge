@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bellybutton Biodiversity</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-
+<style>
+  .jumbotron {
+    background-color: rgb(88, 207, 211);
+  }
+  h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+    font-weight: bolder;
+  }
+  .container {
+    background-color: rgb(255, 254, 243);
+  }
+</style>
 <body>
 
   <div class="container">
@@ -20,7 +29,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="well">
           <h5>Test Subject ID No.:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -32,10 +41,10 @@
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <div id="bar"></div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <div id="gauge"></div>
       </div>
     </div>
@@ -44,15 +53,24 @@
         <div id="bubble"></div>
       </div>
     </div>
-    <footer class="footer">
-      <div class="text-center p-2" style="background-color: rgb(6, 162, 189); font-family: 'Courier New', Courier, monospace; color: white;">
-        © 2021 Copyright: Vilaysack Khonsavanh</div>
-    </footer>
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <footer class="footer">
+            <div class="text-center p-2" style="background-color: rgb(88, 207, 211); font-family: 'Courier New', Courier, monospace; color: white;">
+              © 2021 Copyright: Vilaysack Khonsavanh</div>
+          </footer>
+        </div>
+
+      </div>
+    </div>
+    
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="./static/js/app.js"></script>
-  <script src="./static/js/bonus.js"></script>
+  <!-- <script src="./static/js/bonus.js"></script> -->
   
 </body>
 

@@ -34,7 +34,7 @@ A gauge chart is created to display weekly washing frequency for the individual,
 ## Deployment
 
 The final application is deployed by using GitHub Pages for public viewing. 
-[Click here to view the site]()
+[Click here to view the site](https://kesavanh.github.io/plotly-challenge/index.html)
 
 
 

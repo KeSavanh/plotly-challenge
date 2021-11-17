@@ -1,8 +1,8 @@
 
 // Create file path to json file and a variable to hold data loaded
-var filePath = "resources/samples.json";
+var filePath = "https://KeSavanh.github.io/plotly-challenge/resources/samples.json";
 // Read sample.json using D3 and store in sampleData
-d3.json(filePath).then(function(data) {
+d3.json(filePath).then(data => {
     console.log(data);
     var dropDownSample = d3.select("#selDataset");
     var sampleNames = data.names.forEach((item) => {
@@ -11,6 +11,7 @@ d3.json(filePath).then(function(data) {
                                                   .property("value");
                                                          });
     var selValue = sampleNames;
+    console.log(selValue);
     // Reset page with the selected value
     barChart(selValue);
     metaDataBox(selValue);
@@ -29,28 +30,41 @@ function optionChanged(selId) {
 
 // Demographic Box
 function metaDataBox(selId) {
-    d3.json(filePath).then(function(data) {
-        var selSample = data.metadata.filter(item => 
-                        item.id.toString() === selId)[0];
-        var demoPanel = d3.select("#sample-metadata");
-        demoPanel.html("");
-        Object.entries(selSample).forEach(([key, value]) => {demoPanel.append('p')
-                                                                    .text(`${key}: ${value}`)
-        })
-    });                                                
+    d3.json(filePath, function(error, json){
+        if (error) {
+            console.log(error);
+            alert(error);
+        } 
+        else {
+            result = json[0];
+            update(result);
+        }
+    });
+
+    // d3.json(filePath).then(data => {
+    //     var selSample = data.metadata.filter(item => 
+    //                     item.id.toString() === selId)[0];
+    //     var demoPanel = d3.select("#sample-metadata");
+    //     demoPanel.html("");
+    //     Object.entries(selSample).forEach(([key, value]) => {
+    //         var demoDiplay = (`${key}: ${value}`);
+    //         demoPanel.append('p').text(demoDiplay);
+    //     })
+    // });                                                
 };
 
 
 // Horizontal bar chart
 function barChart(selId) {
-    d3.json(filePath).then(function(data) {
+    d3.json(filePath).then(data => {
     var selSampleValues = data.samples.filter(sample => sample.id === selId)[0];
-    var otuValues = selSampleValues.sample_values.slice(0,10);
-    var otuLables = selSampleValues.otu_lables.slice(0,10);
-    var otuIds = selSampleValues.otu_ids.slice(0,10);
+    var otuValues = selSampleValues.sample_values;
+    var otuLables = selSampleValues.otu_lables;
+    var otuIds = selSampleValues.otu_ids;
     var traceBar = [{
-        x: otuValues.reverse(),
-        y: otuLables.map(ID => `OTU ${ID}`).reverse(),
+        x: otuValues,
+        y: otuIds,
+        text: otuLables,
         type: "bar",
         orientation: "h"
     }];
@@ -64,12 +78,12 @@ function barChart(selId) {
         }
     };
     Plotly.newPlot('bar', traceBar, layoutBar);
-    });
+    };
 };
 
 // Bubble chart
 function bubbleChart(selId) {
-    d3.json(filePath).then(function(data) {
+    d3.json("resources/samples.json").then(function(data) {
     var selSampleValues = data.samples.filter(sample => selId === sample.id.toString())[0];
     var otuValues = selSampleValues.sample_values;
     var otuLables = selSampleValues.otu_lables;
@@ -114,14 +128,14 @@ function bubbleChart(selId) {
 // Gauge Chart (BONUS!!!)
 function gaugeChart(selId) {
     d3.json(filePath).then(function(data) {
-    var selSampleValues = data.metadata.filter(sample => sample.id.toString() == selId)[0];
-    var washFreq = selSampleValues.wfreq;
+    var selSampleValues = data.metadata.filter(sample => sample.id.toString() === selId);
+    var washFreq = selSampleValues[0].wfreq;
 
     var traceGauge = [{
         domain: { x: [0, 1], y: [0, 1]},
         type: 'indicator',
         mode: "gauge+number",
-        values: washFreq,
+        value: wfreq,
         title: { text: `Sample No. ${selId} Belly Button Weekly Washing Frequency <br>Scrubs per Week`},
         gauge: {
             axis: { range: [null, 9]},
@@ -147,11 +161,5 @@ function gaugeChart(selId) {
     });
 };
 
-// When DOM changes:
-function optionChanged(selId) {
-    barChart(selId);
-    metaDataBox(selId);
-    bubbleChart(selId);
-    gaugeChart(selId);
-};
+
 

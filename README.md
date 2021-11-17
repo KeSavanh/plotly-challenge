@@ -21,7 +21,7 @@ A bubble chart is created to display `sample_values` of each individual. In the 
 
 A card is created to display demographic information of the sample. 
 
-![DemoCard](images/democard.pgn)
+![DemoCard](images/democard.png)
 
 ### Gauge Chart
 
@@ -34,7 +34,13 @@ A gauge chart is created to display weekly washing frequency for the individual,
 ## Deployment
 
 The final application is deployed by using GitHub Pages for public viewing. 
-[Click here to view the site](https://kesavanh.github.io/plotly-challenge/index.html)
+[Click here to view and interact with the site](https://kesavanh.github.io/plotly-challenge/index.html)
+
+and look like below:
+
+![part1](images/part1.png)
+![part2](images/part2.png)
+
 
 
 

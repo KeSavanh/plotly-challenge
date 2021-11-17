@@ -1,5 +1,5 @@
 
-// Create file path to json file and a variable to hold data loaded
+// Create file path to json file and a variable to hold loaded data 
 var filePath = "resources/samples.json";
 var allSampleData;
 // Read sample.json using D3 and store in sampleData
@@ -20,28 +20,28 @@ d3.json(filePath).then(data => { allSampleData = data
 
 // When DOM changes:
 function optionChanged(selId) {
-    barChart(selId);
-    metaDataBox(selId);
-    bubbleChart(selId);
-    gaugeChart(selId);
+            barChart(selId);
+            metaDataBox(selId);
+            bubbleChart(selId);
+            gaugeChart(selId);
 };
 
 // Demographic Box
 function metaDataBox(selId) { 
-        var selSample = allSampleData.metadata.filter(item => 
-                        item.id.toString() === selId)[0];
-        var demoPanel = d3.select("#sample-metadata");
-        demoPanel.html("");
-        Object.entries(selSample).forEach(([key, value]) => {
-            var demoDiplay = (`${key}: ${value}`);
-            demoPanel.append('p').text(demoDiplay);
-        })                                                
+        var selSample = allSampleData.metadata
+                                        .filter(item => item.id
+                                            .toString() === selId)[0];
+        var demoPanel = d3.select("#sample-metadata").html("");
+            Object.entries(selSample).forEach(([key, value]) => {
+                var demoDiplay = (`${key}: ${value}`);
+                demoPanel.append('p').text(demoDiplay);
+            })                                                
 };
-
 
 // Horizontal bar chart
 function barChart(selId) {
-    var selSampleValues = allSampleData.samples.filter(sample => sample.id === selId)[0];
+    var selSampleValues = allSampleData.samples
+                                        .filter(sample => sample.id === selId)[0];
     var otuValues = selSampleValues.sample_values;
     var otuLabels = selSampleValues.otu_labels;
     var otuIds = selSampleValues.otu_ids;
@@ -50,7 +50,16 @@ function barChart(selId) {
         y: otuIds.map(ID => `OTU ${ID}`).slice(0, 10).reverse(),
         text: otuLabels.slice(0, 10).reverse(),
         type: "bar",
-        orientation: "h"
+        orientation: "h",
+        marker: {
+            color: "#74beeb",
+            opacity: 0.8,
+            line: {
+                color: "black",
+                width:1
+            }
+
+        }
     }];
     var layoutBar = {
         title: {
@@ -61,6 +70,28 @@ function barChart(selId) {
                 family: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif"
 
             }
+        },
+        height: 550,
+        width: 460,
+        xaxis: {
+            title: "Value",
+            font: {
+                size: 12,
+                color: "black",
+                family: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif"
+
+            },
+
+        },
+        yaxis: {
+            title: "Bacteria",
+            font: {
+                size: 12,
+                color: "black",
+                family: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif"
+
+            },
+            
         }
     };
     Plotly.newPlot('bar', traceBar, layoutBar);
@@ -68,7 +99,8 @@ function barChart(selId) {
 
 // Bubble chart
 function bubbleChart(selId) {
-    var selSampleValues = allSampleData.samples.filter(sample => selId === sample.id.toString())[0];
+    var selSampleValues = allSampleData.samples
+                                    .filter(sample => selId === sample.id.toString())[0];
     var otuValues = selSampleValues.sample_values;
     var otuLables = selSampleValues.otu_lables;
     var otuIds = selSampleValues.otu_ids;
@@ -111,7 +143,8 @@ function bubbleChart(selId) {
 
 // Gauge Chart (BONUS!!!)
 function gaugeChart(selId) {
-    var selSampleValues = allSampleData.metadata.filter(sample => sample.id.toString() === selId)[0];
+    var selSampleValues = allSampleData.metadata
+                                        .filter(item => item.id.toString() === selId)[0];
     var washFreq = selSampleValues.wfreq;
 
     var traceGauge = [{
@@ -120,7 +153,7 @@ function gaugeChart(selId) {
         mode: "gauge+number",
         value: washFreq,
         title: { 
-            text: `Sample No. ${selId} Belly Button Weekly Washing Frequency <br>Scrubs per Week`,
+            text: `Sample No. ${selId}'s <br> Belly Button Weekly Washing Frequency <br>Scrubs per Week`,
             font: {
                 size: 15,
                 color: "black",
@@ -144,8 +177,8 @@ function gaugeChart(selId) {
         },
     }];
     var layoutGauge = {
-        width: 450,
-        height: 350,
+        width: 410,
+        height: 320,
     };
     Plotly.newPlot('gauge', traceGauge, layoutGauge);
 };

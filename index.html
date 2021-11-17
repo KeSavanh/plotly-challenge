@@ -9,13 +9,23 @@
 </head>
 <style>
   .jumbotron {
-    background-color: rgb(88, 207, 211);
+    background-color: rgb(106, 241, 245);
   }
-  h1, h3, h5, option, p {
+  h1, h3, h4, #selDataset, p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
   }
   .container {
-    background-color:whitesmoke;
+    background-color:white;
+  }
+  #panel-heading {
+    color: turquoise;
+  }
+  #bar {
+    margin-bottom: 5rem;
+  }
+
+  #gauge {
+
   }
 </style>
 <body>
@@ -32,17 +42,17 @@
     <div class="row">
       <div class="col-md-3">
         <div class="well">
-          <h5>Test Subject ID No.:</h5>
+          <h4>Test Subject ID No.:</h4>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Demographic Info</h3>
+            <h4 class="panel-title">Demographic Info</h4>
           </div>
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <div id="bar"></div>
       </div>
       <div class="col-md-4">
